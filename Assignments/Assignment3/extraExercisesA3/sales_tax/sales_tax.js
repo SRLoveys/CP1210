@@ -38,7 +38,11 @@ const clearTaxRate = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     $("#calculate").addEventListener( "click", processEntires);
-    $("#clear").addEventListener( "click", clearEntries);
+    $("#clear").addEventListener("click", () => {
+        clearEntries();
+        clearSubtotal();
+        clearTaxRate();
+    }) 
     $("#subtotal").addEventListener( "click", clearSubtotal);
     $("#tax_rate").addEventListener( "click", clearTaxRate);
 })
