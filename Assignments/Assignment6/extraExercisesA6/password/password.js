@@ -1,5 +1,7 @@
 "use strict";
+
 const $ = (selector) => document.querySelector(selector);
+
 const getRandomNumber = max => {
 	let random = null;
 	if (!isNaN(max)) {
@@ -9,12 +11,30 @@ const getRandomNumber = max => {
 	}
 	return random;
 };
+
 document.addEventListener("DOMContentLoaded", () => {
     $("#generate").addEventListener("click", () => {
         $("#password").value = ""; // clear previous entry
-    
-        const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-+!@";
         
+        if (isNaN($("#num").value)) {
+            alert("Please enter a valid number.")
+            return;
+        }
+
+        const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-+!@";
+        let password = "";
+
+        if (!isNaN($("#num").value)) {
+            let numberOfCharacters = parseInt($("#num").value)
+
+            for (let i = 0; i < numberOfCharacters; i++) {
+                const randomNumber = getRandomNumber(chars.length);
+                const singleChar = chars[randomNumber];
+                password += singleChar;
+            }
+        }
+
+        $("#password").value = password;
     }); // end click()
     
     $("#clear").addEventListener("click", () => {
