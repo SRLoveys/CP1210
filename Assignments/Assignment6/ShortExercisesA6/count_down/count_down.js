@@ -20,12 +20,53 @@ document.addEventListener("DOMContentLoaded", () => {
             messageLbl.textContent = "Please enter the date in MM/DD/YYYY format.";
             return;
         } 
+
         // make sure event date string has a 4-digit year
         const year = eventDate.substring(eventDate.length - 4); 
         if (isNaN(year)) {
             messageLbl.textContent = "Please enter the date in MM/DD/YYYY format.";
             return;
-        }     
+        }
+
+        const month = parseInt(dateParts[0]);
+        const day = parseInt(dateParts[1]);
+
+        if (isNaN(month) || month < 1 || month > 12) {
+            messageLbl.textContent = "Please enter a valid month (1-12)."
+            return;
+        }
+
+        if (isNaN(day) || day < 1 || day > 31) {
+            messageLbl.textContent = "Please enter a valid day (1-31)."
+            return;
+        }
+
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+            if (day > 31) {
+                messageLbl.textContent = "Please enter a valid day for this month (1-31)."
+                return;
+            }
+        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+            if (day > 30) {
+                messageLbl.textContent = "Please enter a valid day for this month (1-30)."
+                return;
+            }
+        }
+
+        if ((month == 2) && (parseInt(year) % 4 == 0)) {
+            if (day > 29) {
+                messageLbl.textContent = "Please enter a valid day for a leap year (1-29)"
+                return;
+            }
+        }
+
+        if ((month == 2) && !(parseInt(year) % 4 == 0)) {
+            if (day > 28) {
+                messageLbl.textContent = "Please enter a valid day for a February (1-28)"
+                return;
+            }
+        }
+
         // convert event date string to Date object and check for validity
         let date = new Date(eventDate);
         if (date == "Invalid Date") {

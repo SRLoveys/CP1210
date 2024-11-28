@@ -27,6 +27,16 @@ const calculateDiscount = (customer, subtotal) => {
     }
 };
 
+const dateFunction = (date) => {
+
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${month}/${day}/${year}`;
+
+};
+
 document.addEventListener("DOMContentLoaded",  () => {
 
     $("#calculate").addEventListener("click", () => {
@@ -40,6 +50,26 @@ document.addEventListener("DOMContentLoaded",  () => {
             return;
         }
 
+        if ($("#invoice_date").value == "") {
+            const today = new Date();
+            const invoiceDateTextBox = today;
+            const invoiceDateObject = new Date(invoiceDateTextBox);
+            console.log(invoiceDateObject);
+            const formattedDate = dateFunction(invoiceDateObject);
+            $("#invoice_date").value = formattedDate;
+
+            const dueDateObject = new Date(today);
+            dueDateObject.setDate(dueDateObject.getDate() + 30);
+            const formattedDueDate = dateFunction(dueDateObject);
+            $("#due_date").value = formattedDueDate;
+        } else {
+            const invoiceDateTextBox = $("#invoice_date").value; 
+            const dueDateObject = new Date(invoiceDateTextBox);
+            dueDateObject.setDate(dueDateObject.getDate() + 30);
+            const formattedDueDate = dateFunction(dueDateObject);
+            $("#due_date").value = formattedDueDate;
+        }
+
         const discountPercent = calculateDiscount(customerType, subtotal);
         const discountAmount = subtotal * discountPercent;
         const invoiceTotal = subtotal - discountAmount;
@@ -48,7 +78,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         $("#percent").value = (discountPercent * 100).toFixed(2);
         $("#discount").value = discountAmount.toFixed(2);
         $("#total").value = invoiceTotal.toFixed(2);
-
+        
         // set focus on type drop-down when done  
         $("#type").focus();
 
