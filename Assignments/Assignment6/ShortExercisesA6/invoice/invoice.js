@@ -101,4 +101,3 @@ document.addEventListener("DOMContentLoaded",  () => {
     // set focus on type drop-down on initial load
     $("#type").focus();
 });
-
