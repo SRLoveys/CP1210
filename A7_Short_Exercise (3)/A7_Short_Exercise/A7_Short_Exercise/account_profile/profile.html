@@ -17,6 +17,15 @@
     </main>
     <script>
         // display query string
+        let queryString = location.search;
+
+        if (queryString.startsWith("?")) {
+            queryString = queryString.substring(1);
+        }
+        
+        let decodeQueryString = decodeURIComponent(queryString);
+        document.querySelector("#profile").textContent = `${decodeQueryString}`;
+
         document.querySelector("#back").addEventListener("click", () => {
             history.back();
         });
