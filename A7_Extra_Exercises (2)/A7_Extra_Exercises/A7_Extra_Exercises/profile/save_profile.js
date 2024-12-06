@@ -67,7 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         if (isValid) { 
-            // code that saves profile info goes here
+            sessionStorage.setItem("email", email);
+            sessionStorage.setItem("phone", phone);
+            sessionStorage.setItem("zip", zip);
+            sessionStorage.setItem("dob", dob);
+
+            
+            location.href = "profile.html";
         }
         
         $("#email").focus(); 
